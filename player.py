@@ -1,3 +1,4 @@
+
 import pygame
 from box import Box
 from bomb import Bomb
@@ -101,7 +102,7 @@ class Player():
         if keys[pygame.K_SPACE]:                                
             space_event_for_toggle=True    
 
-        if space_event_for_toggle==True and keys[pygame.K_SPACE]==False and player1_bomb_location_size < 3:    
+        if space_event_for_toggle==True and keys[pygame.K_SPACE]==False:    
             player1_bomb_location_size+=1
             player1_bomb_location.append((int(player1_position.x), int(player1_position.y)))        
             space_event_for_toggle=False
@@ -112,8 +113,8 @@ class Player():
         pygame.draw.circle(screen,self.player1_color,(int(player1_position.x),int(player1_position.y)),self.player1_radius)
         bomb.drop_bomb_player1(screen,player1_bomb_location,player1_bomb_location_size)
 
-        if player1_bomb_location_size==3:
-            player1_bomb_location_size-=1
+        #if player1_bomb_location_size==3:
+            #player1_bomb_location_size-=1
             #player1_bomb_location_size=box.test()
             
 

@@ -1,3 +1,4 @@
+
 import pygame
 #from bomb import Bomb
 
@@ -72,7 +73,8 @@ class Box():
                     
                     pygame.draw.rect(self.screen, "white", rect, 0)
                     box_location_handle_array_size-=1
-
+    #def test(self):
+        #return box_location_handle_array_size
         
         
 
@@ -81,4 +83,3 @@ class Box():
         
 
     
-
