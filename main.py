@@ -31,15 +31,12 @@ while running:
             running = False   
     screen.fill("white")
 
-
     box.draw_box(screen)
     grid.draw_grid(screen)
     
-       
-
     keys= pygame.key.get_pressed()
     player.move(keys,screen)
-    
+
     pygame.display.flip()
     dt=clock.tick(FPS)/1000
 

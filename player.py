@@ -1,5 +1,5 @@
 
-import pygame
+import pygame 
 from box import Box
 from bomb import Bomb
 
@@ -16,6 +16,8 @@ new_position_y_player2=0
 space_event_for_toggle=False
 
 enter_event_for_toggle=False
+
+new_box_add_flag=False
 
 player1_position=pygame.Vector2(20,580)     #start position for player1
 player2_position=pygame.Vector2(580,20)     #start position for player2
@@ -59,12 +61,13 @@ class Player():
 
         global player1_bomb_location_size
         global player2_bomb_location_size
+
+        global new_box_add_flag
         
 
         box_location=box.draw_box(screen)
         
-
-
+        
 ######################################################################################################################################################################################
 ####################################################################################  PLAYER1  #######################################################################################
 ######################################################################################################################################################################################
@@ -113,11 +116,6 @@ class Player():
         pygame.draw.circle(screen,self.player1_color,(int(player1_position.x),int(player1_position.y)),self.player1_radius)
         bomb.drop_bomb_player1(screen,player1_bomb_location,player1_bomb_location_size)
 
-        #if player1_bomb_location_size==3:
-            #player1_bomb_location_size-=1
-            #player1_bomb_location_size=box.test()
-            
-
 ######################################################################################################################################################################################
 ####################################################################################  PLAYER2   ######################################################################################
 ######################################################################################################################################################################################    
@@ -165,3 +163,19 @@ class Player():
         pygame.draw.circle(screen,self.player2_color,(int(player2_position.x),int(player2_position.y)),self.player2_radius)
         bomb.drop_bomb_player2(player2_bomb_location)
         bomb.explode_bomb_player2(player2_bomb_location_size)
+
+
+######################################################################################################################################################################################
+####################################################################################   GENERAL  ######################################################################################
+######################################################################################################################################################################################
+
+
+        if keys[pygame.K_p]:                         
+            new_box_add_flag=True
+            
+        if keys[pygame.K_p]==0 and new_box_add_flag==True:                  
+            new_box_add_flag=False
+            box.add_box()
+        
+
+        
