@@ -14,11 +14,6 @@ player2_position=pygame.Vector2(580,20)     #start position for player2
 box=Box()
 bomb=Bomb()
 
-
-
-
-
-
 class Player():
 
     #player info:
@@ -45,8 +40,7 @@ class Player():
         self.player2_position = pygame.Vector2(580, 20)
 
         # Bomb information
-        self.player1_bomb_location = []
-        self.player2_bomb_location = []
+        self.bomb_location = []
 
         # Game objects
         self.box = Box()
@@ -99,14 +93,14 @@ class Player():
             self.space_event_for_toggle=True    
 
         if self.space_event_for_toggle==True and keys[pygame.K_SPACE]==False:    
-            self.player1_bomb_location.append((int(player1_position.x), int(player1_position.y)))        
+            self.bomb_location.append((int(player1_position.x), int(player1_position.y),1,1))        
             self.space_event_for_toggle=False
 
         
         
 
         pygame.draw.circle(screen,self.player1_color,(int(player1_position.x),int(player1_position.y)),self.player1_radius)
-        bomb.drop_bomb_player1(screen,self.player1_bomb_location)
+        #bomb.drop_bomb_player1(screen,self.player1_bomb_location)
 
 ######################################################################################################################################################################################
 ####################################################################################  PLAYER2   ######################################################################################
@@ -146,11 +140,11 @@ class Player():
             self.enter_event_for_toggle=True    
 
         if self.enter_event_for_toggle==True and keys[pygame.K_RETURN]==False:
-            self.player2_bomb_location.append((int(player2_position.x), int(player2_position.y)))        
+            self.bomb_location.append((int(player2_position.x), int(player2_position.y),1,2))        
             self.enter_event_for_toggle=False
             
         pygame.draw.circle(screen,self.player2_color,(int(player2_position.x),int(player2_position.y)),self.player2_radius)
-        bomb.drop_bomb_player2(self.player2_bomb_location)
+        
        
 
 ######################################################################################################################################################################################
@@ -165,5 +159,5 @@ class Player():
             self.new_box_add_flag=False
             box.add_box()
         
-
+        bomb.add_bomb_location(screen,self.bomb_location)
         
