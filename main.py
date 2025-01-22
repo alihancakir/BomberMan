@@ -19,7 +19,6 @@ clock = pygame.time.Clock()
 running = True
 dt=0
 
-
 grid=Grid()
 box= Box()
 player=Player()
