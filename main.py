@@ -16,6 +16,7 @@ pygame.init()
 font = pygame.font.Font(None, 25)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
+pygame.display.set_caption("BomberMan")
 running = True
 dt=0
 

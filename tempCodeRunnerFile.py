@@ -1,1 +1,2 @@
-bomb
+
+SCREEN_HEIGHT=600
