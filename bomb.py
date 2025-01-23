@@ -1,24 +1,3 @@
-                                                                #########################################################################
-                                                                #                                                                       #
-                                                                #            #steps:                                                    #
-                                                                #                                                                       #
-                                                                #               # all bombs add to  same array.                         #
-                                                                #                                                                       #
-                                                                #                # are there any bombs close to dropped bomb?           #
-                                                                #                                                                       #
-                                                                #               # explode the bomb                                      #
-                                                                #                                                                       #
-                                                                #                # the bomb value decrease 1                            #
-                                                                #                                                                       #
-                                                                #                # the default bombs's turn is zero, explode it         #
-                                                                #                                                                       #
-                                                                #########################################################################
-
-
-
-                                                                                                #S O L V E D
-
-
 import pygame
 from box import Box
 TILE_SIZE=40
@@ -77,6 +56,20 @@ class Bomb():
 
                                 if bomb[2]==0:
                                     bomb_info_from_player.remove(bomb)
+
+                      
+
+                             
+        #to do:
+        # 
+        # explode added first bomb and maybe close other bomb when palyer's bomb count is 3
+        # meabwhile decrease related defauşt bomb turn and maybe explode it                       
+                                
+
+
+                               
+
+                            
                             
                 
 
