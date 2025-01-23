@@ -40,7 +40,16 @@ class Player():
         self.player2_position = pygame.Vector2(580, 20)
 
         # Bomb information
-        self.bomb_location = []
+        self.bomb_location = [
+                                    ##theese bomb could be random location add in here
+    
+                                    #(bomb X    ,bomb Y  ,bomb TURN COUNT   ,PLAYER ID)
+                                    #(bomb_x    ,bomb_y  ,bomb_turn         ,by_player1 or 2)
+
+                                    [20, 580, 1, 0], [20, 380, 1, 0], [20, 100, 3, 0], [100, 20, 1, 0], [100, 220, 2, 0],
+                                    [300, 180, 2, 0], [420, 140, 1, 0], [420, 20, 1, 0], [540, 260, 1, 0], [540, 500, 3, 0]
+                                    #[20, 580, 1, 0]
+        ]
 
         # Game objects
         self.box = Box()
@@ -93,7 +102,7 @@ class Player():
             self.space_event_for_toggle=True    
 
         if self.space_event_for_toggle==True and keys[pygame.K_SPACE]==False:    
-            self.bomb_location.append((int(player1_position.x), int(player1_position.y),1,1))        
+            self.bomb_location.append([int(player1_position.x), int(player1_position.y),1,1])        
             self.space_event_for_toggle=False
 
         
@@ -140,7 +149,7 @@ class Player():
             self.enter_event_for_toggle=True    
 
         if self.enter_event_for_toggle==True and keys[pygame.K_RETURN]==False:
-            self.bomb_location.append((int(player2_position.x), int(player2_position.y),1,2))        
+            self.bomb_location.append([int(player2_position.x), int(player2_position.y),1,2])        
             self.enter_event_for_toggle=False
             
         pygame.draw.circle(screen,self.player2_color,(int(player2_position.x),int(player2_position.y)),self.player2_radius)
