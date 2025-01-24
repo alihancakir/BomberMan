@@ -18,9 +18,12 @@ class Player():
 
     #player info:
     def __init__(self):
+
+        # Player1 info
         self.player1_color="red"
         self.player1_radius=10
 
+        # Player2 info
         self.player2_color="blue"
         self.player2_radius=10
 
@@ -29,6 +32,10 @@ class Player():
         self.new_position_y_player1 = 0
         self.new_position_x_player2 = 0
         self.new_position_y_player2 = 0
+
+        # Which player added how many bombs
+        self.player1_bomb_count=0
+        self.player2_bomb_count=0
 
         # Bomb and event state
         self.space_event_for_toggle = False
@@ -104,6 +111,7 @@ class Player():
         if self.space_event_for_toggle==True and keys[pygame.K_SPACE]==False:    
             self.bomb_location.append([int(player1_position.x), int(player1_position.y),1,1])        
             self.space_event_for_toggle=False
+            self.player1_bomb_count+=1
 
         
         
@@ -151,6 +159,8 @@ class Player():
         if self.enter_event_for_toggle==True and keys[pygame.K_RETURN]==False:
             self.bomb_location.append([int(player2_position.x), int(player2_position.y),1,2])        
             self.enter_event_for_toggle=False
+            self.player2_bomb_count+=1
+
             
         pygame.draw.circle(screen,self.player2_color,(int(player2_position.x),int(player2_position.y)),self.player2_radius)
         
@@ -168,5 +178,12 @@ class Player():
             self.new_box_add_flag=False
             box.add_box()
         
-        bomb.add_bomb_location(screen,self.bomb_location)
+        bomb.add_bomb_location(screen,self.bomb_location,self.player1_bomb_count,self.player2_bomb_count)
+        #bomb.added_bomb_from_count(screen,player1_bomb_count,player2_bomb_count)
         
+        if self.player1_bomb_count==3:
+            self.player1_bomb_count=0
+        
+        if self.player2_bomb_count==3:
+            self.player2_bomb_count=0
+                
