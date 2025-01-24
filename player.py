@@ -179,7 +179,6 @@ class Player():
             box.add_box()
         
         bomb.add_bomb_location(screen,self.bomb_location,self.player1_bomb_count,self.player2_bomb_count)
-        #bomb.added_bomb_from_count(screen,player1_bomb_count,player2_bomb_count)
         
         if self.player1_bomb_count==3:
             self.player1_bomb_count=0
