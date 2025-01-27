@@ -46,18 +46,22 @@ class Player():
         self.player1_position = pygame.Vector2(20, 580)
         self.player2_position = pygame.Vector2(580, 20)
 
-        # Bomb information
-        self.bomb_location = [
-                                    ##theese bomb could be random location add in here
-    
-                                    #(bomb X    ,bomb Y  ,bomb TURN COUNT   ,PLAYER ID)
-                                    #(bomb_x    ,bomb_y  ,bomb_turn         ,by_player1 or 2)
 
-                                    [20, 580, 1, 0], [20, 380, 1, 0], [20, 100, 3, 0], [100, 20, 1, 0], [100, 220, 2, 0],
-                                    [300, 180, 2, 0], [420, 140, 1, 0], [420, 20, 1, 0], [540, 260, 1, 0], [540, 500, 3, 0]
-                                   
-        ]
-        
+                                                      #[bomb X    ,bomb Y  ,bomb TURN]
+                                                      #[bomb_x    ,bomb_y  ,bomb_turn]
+
+
+        # Bomb information
+        self.default_bomb_location = [
+                                    ##theese bomb could be random location add in here
+                                    [20, 580, 1], [20, 380, 1], [20, 100, 3], [100, 20, 1], [100, 220, 2],
+                                    [300, 180, 2], [420, 140, 1], [420, 20, 1], [540, 260, 1], [540, 500, 3]                      
+                                    ]
+
+        self.player1_bomb_location = []
+
+
+        self.player2_bomb_location = []
 
         # Game objects
         self.box = Box()
@@ -110,7 +114,7 @@ class Player():
             self.space_event_for_toggle=True    
 
         if self.space_event_for_toggle==True and keys[pygame.K_SPACE]==False:    
-            self.bomb_location.append([int(player1_position.x), int(player1_position.y),1,1])        
+            self.player1_bomb_location.append([int(player1_position.x), int(player1_position.y),1])        
             self.space_event_for_toggle=False
             self.player1_bomb_count+=1
 
@@ -118,7 +122,7 @@ class Player():
         
 
         pygame.draw.circle(screen,self.player1_color,(int(player1_position.x),int(player1_position.y)),self.player1_radius)
-        #bomb.drop_bomb_player1(screen,self.player1_bomb_location)
+        
 
 ######################################################################################################################################################################################
 ####################################################################################  PLAYER2   ######################################################################################
@@ -158,7 +162,7 @@ class Player():
             self.enter_event_for_toggle=True    
 
         if self.enter_event_for_toggle==True and keys[pygame.K_RETURN]==False:
-            self.bomb_location.append([int(player2_position.x), int(player2_position.y),1,2])        
+            self.player2_bomb_location.append([int(player2_position.x), int(player2_position.y),1])        
             self.enter_event_for_toggle=False
             self.player2_bomb_count+=1
 
@@ -179,7 +183,12 @@ class Player():
             self.new_box_add_flag=False
             box.add_box()
         
-        bomb.add_bomb_location(screen,self.bomb_location,self.player1_bomb_count,self.player2_bomb_count)
+        bomb.add_bomb_location(
+                                screen,
+                                self.default_bomb_location,
+                                self.player1_bomb_location,
+                                self.player2_bomb_location,
+                                )
         
         if self.player1_bomb_count==3:
             self.player1_bomb_count=0

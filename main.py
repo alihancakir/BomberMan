@@ -21,7 +21,7 @@ running = True
 dt=0
 
 grid=Grid()
-box= Box()
+box= Box()  
 player=Player()
 bomb=Bomb()
 
