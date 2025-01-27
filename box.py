@@ -16,7 +16,11 @@ box_location_handle = [
                                 (40, 80),   (280, 200), (120, 40),  (440, 240), (120, 80),  (480, 200),
                                 (320, 360), (280, 400), (360, 360), (400, 440)
                         ]
-##
+
+box_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/box.png")
+scaled_image = pygame.transform.scale(box_imagine, (40, 40))  
+
+
 class Box():
 
     def draw_box(self,screen):
@@ -26,8 +30,9 @@ class Box():
             x_location_start_box,y_location_start_box=box_location_handle[index]           
             for x in range(x_location_start_box,x_location_start_box+TILE_SIZE,TILE_SIZE):
                 for y in range(y_location_start_box,y_location_start_box+TILE_SIZE,TILE_SIZE):
-                    rect= pygame.Rect(x,y,TILE_SIZE,TILE_SIZE)
-                    pygame.draw.rect(self.screen,(150,100,50),rect,0)  
+                    screen.blit(scaled_image, (x, y))
+
+
         return box_location_handle
         
     def add_box(self):
@@ -61,7 +66,7 @@ class Box():
 
         for direction, (x, y) in delete_box_directions.items():
                 if (x, y) in box_location_handle:
-
+                    
                     box_location_handle.remove((x, y))
                     rect = pygame.Rect(x, y, TILE_SIZE, TILE_SIZE)
                     

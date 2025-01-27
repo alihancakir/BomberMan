@@ -14,6 +14,19 @@ player2_position=pygame.Vector2(580,20)     #start position for player2
 box=Box()
 bomb=Bomb()
 
+
+player1_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/player2.png")
+player1_scaled_image = pygame.transform.scale(player1_imagine, (40, 40))
+
+player2_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/robot.png")
+player2_scaled_image = pygame.transform.scale(player2_imagine, (35, 35)) 
+
+
+
+
+
+
+
 class Player():
 
     #player info:
@@ -120,9 +133,7 @@ class Player():
 
         
         
-
-        pygame.draw.circle(screen,self.player1_color,(int(player1_position.x),int(player1_position.y)),self.player1_radius)
-        
+        screen.blit(player1_scaled_image, (int(player1_position.x)-20,int(player1_position.y)-20))
 
 ######################################################################################################################################################################################
 ####################################################################################  PLAYER2   ######################################################################################
@@ -167,7 +178,7 @@ class Player():
             self.player2_bomb_count+=1
 
             
-        pygame.draw.circle(screen,self.player2_color,(int(player2_position.x),int(player2_position.y)),self.player2_radius)
+        screen.blit(player2_scaled_image, (int(player2_position.x)-20,int(player2_position.y)-18))
         
        
 

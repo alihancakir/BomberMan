@@ -3,13 +3,15 @@ from box import Box
 #TILE_SIZE=40
 box=Box()
 
-first_added_bomb_from_player1=[]
+player1_bomb_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/p1_bomb.png")
+player1_bomb_scaled_image = pygame.transform.scale(player1_bomb_imagine, (40, 40))
 
-index_handle=0
+player2_bomb_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/p2_bomb.png")
+player2_bomb_scaled_image = pygame.transform.scale(player2_bomb_imagine, (40, 40))
 
+default_bomb_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/default_bomb.png")
+default_bomb_scaled_image = pygame.transform.scale(default_bomb_imagine, (40, 40))
 
-
-flag_first_added_from_player1=False
 
 class Bomb():
 
@@ -29,10 +31,11 @@ class Bomb():
                 player1_bomb_x_0,player1_bomb_y_0,player1_bomb_turn_0=player1_bomb_location[0]
 
                 player1_bomb_x,player1_bomb_y,player1_turn=player1_bomb_info
-                pygame.draw.circle(screen,"red",(player1_bomb_x,player1_bomb_y),15)
+                
+                screen.blit(player1_bomb_scaled_image, (player1_bomb_x-20,player1_bomb_y-20))
 
                 bomb_info_text_player1 = self.font15.render(f"{player1_turn}", True, "white")
-                screen.blit(bomb_info_text_player1, (player1_bomb_x-5, player1_bomb_y-6))
+                screen.blit(bomb_info_text_player1, (player1_bomb_x-10, player1_bomb_y-6))
 
                 bomb_directions = { #if the bomb, close to other bombs                                            
 
@@ -74,31 +77,67 @@ class Bomb():
 
                     box.remove_box(screen,(player1_bomb_x_0,player1_bomb_y_0))
                     player1_bomb_location.remove(player1_bomb_location[0])
-                               
+
             #Player2 bomb events:
             for index, player2_bomb_info in enumerate(player2_bomb_location):
 
+                player2_bomb_x_0,player2_bomb_y_0,player2_bomb_turn_0=player2_bomb_location[0]
+
                 player2_bomb_x,player2_bomb_y,player2_turn=player2_bomb_info
-                pygame.draw.circle(screen,"blue",(player2_bomb_x,player2_bomb_y),15)
+
+                screen.blit(player2_bomb_scaled_image, (player2_bomb_x-20,player2_bomb_y-20))
 
                 bomb_info_text_player2 = self.font15.render(f"{player2_turn}", True, "white")
-                screen.blit(bomb_info_text_player2, (player2_bomb_x-5, player2_bomb_y-6))
+                screen.blit(bomb_info_text_player2, (player2_bomb_x-10, player2_bomb_y-6))
+
+                bomb_directions_p2 = { #if the bomb, close to other bombs                                            
+
+                            "going right":  (player2_bomb_x + 40, player2_bomb_y     ),
+                            "going left":   (player2_bomb_x - 40, player2_bomb_y     ),
+                            "going up":     (player2_bomb_x     , player2_bomb_y - 40),
+                            "going down":   (player2_bomb_x     , player2_bomb_y + 40)
+                        }
+                if len(player2_bomb_location)==3:
+
+                    for direction, (x, y) in bomb_directions_p2.items():   # it is for only default bomb close check
+
+                        for bomb_p2_def in default_bomb_location:
+
+                            if (x, y) == (bomb_p2_def[0],bomb_p2_def[1]):
+
+                            
+
+                                bomb_p2_def[2]-=1  #decrease default bomb turn, when turn is not 0
+
+                                player2_bomb_location.remove(player2_bomb_location[0])  # if there is a default bomb near Player1's bombs, Player1's bombs will explode
+
+
+                                if bomb_p2_def[2]==0:       #if default bomb turn's is 0, it will explode 
+                                    default_bomb_location.remove(bomb_p2_def)
+                                    box.remove_box(screen,(player2_bomb_x_0,player2_bomb_y_0))
+                                    box.remove_box(screen,(bomb_p2_def[0],bomb_p2_def[1]))
+
 
                 if len(player2_bomb_location)==3:
+                    for direction, (x, y) in bomb_directions_p2.items():
+                        for bomb_p2 in player2_bomb_location:
+                            if (x, y) == (bomb_p2[0],bomb_p2[1]):
+
+                                box.remove_box(screen,(bomb_p2[0],bomb_p2[1]))
+                                player2_bomb_location.remove(bomb_p2)
+
+                    box.remove_box(screen,(player2_bomb_x_0,player2_bomb_y_0))
                     player2_bomb_location.remove(player2_bomb_location[0])
-             
+
             #Default bomb events:
             for index, default_bomb_info in enumerate(default_bomb_location):
                 default_bomb_x,default_bomb_y,default_bomb_turn=default_bomb_info
 
-                pygame.draw.circle(screen,"black",(default_bomb_x,default_bomb_y),15)
+                screen.blit(default_bomb_scaled_image, (default_bomb_x-20,default_bomb_y-20))
 
                 bomb_info_text_default = self.font15.render(f"{default_bomb_turn}", True, "white")
                 screen.blit(bomb_info_text_default, (default_bomb_x-5, default_bomb_y-6))
-
-
                
-                 
 
 
 
