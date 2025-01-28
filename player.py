@@ -23,6 +23,10 @@ player2_scaled_image = pygame.transform.scale(player2_imagine, (35, 35))
 
 
 
+dropped_bomb_sound = pygame.mixer.Sound("C:/Users/Nitro/Desktop/BomberMan3/sound/drop_bomb.wav")
+
+
+
 
 
 
@@ -129,6 +133,7 @@ class Player():
         if self.space_event_for_toggle==True and keys[pygame.K_SPACE]==False:    
             self.player1_bomb_location.append([int(player1_position.x), int(player1_position.y),1])        
             self.space_event_for_toggle=False
+            dropped_bomb_sound.play()
             self.player1_bomb_count+=1
 
         
@@ -175,6 +180,7 @@ class Player():
         if self.enter_event_for_toggle==True and keys[pygame.K_RETURN]==False:
             self.player2_bomb_location.append([int(player2_position.x), int(player2_position.y),1])        
             self.enter_event_for_toggle=False
+            dropped_bomb_sound.play()
             self.player2_bomb_count+=1
 
             
@@ -199,6 +205,8 @@ class Player():
                                 self.default_bomb_location,
                                 self.player1_bomb_location,
                                 self.player2_bomb_location,
+                                (int(player1_position.x),int(player1_position.y)),
+                                (int(player2_position.x),int(player2_position.y))
                                 )
         
         if self.player1_bomb_count==3:

@@ -1,1 +1,1 @@
-box_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/box.png")
+player2_live_event
