@@ -1,5 +1,7 @@
 import pygame
 from box import Box
+
+pygame.mixer.init() 
 #TILE_SIZE=40
 box=Box()
 
@@ -12,6 +14,7 @@ player2_bomb_scaled_image = pygame.transform.scale(player2_bomb_imagine, (40, 40
 default_bomb_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/default_bomb.png")
 default_bomb_scaled_image = pygame.transform.scale(default_bomb_imagine, (40, 40))
 
+dropped_bomb_sound = pygame.mixer.Sound("C:/Users/Nitro/Desktop/BomberMan3/sound/bomb_explode.mp3")
 
 class Bomb():
 
@@ -32,7 +35,7 @@ class Bomb():
 
                 player1_bomb_x,player1_bomb_y,player1_turn=player1_bomb_info
                 
-                screen.blit(player1_bomb_scaled_image, (player1_bomb_x-20,player1_bomb_y-20))
+                screen.blit(player1_bomb_scaled_image, (player1_bomb_x-20,player1_bomb_y-20))   #player1's bomb image
 
                 bomb_info_text_player1 = self.font15.render(f"{player1_turn}", True, "white")
                 screen.blit(bomb_info_text_player1, (player1_bomb_x-10, player1_bomb_y-6))
@@ -59,7 +62,7 @@ class Bomb():
                                 bomb_p1_def[2]-=1  #decrease default bomb turn, when turn is not 0
 
                                 player1_bomb_location.remove(player1_bomb_location[0])  # if there is a default bomb near Player1's bombs, Player1's bombs will explode
-
+                                dropped_bomb_sound.play()
 
                                 if bomb_p1_def[2]==0:       #if default bomb turn's is 0, it will explode 
                                     default_bomb_location.remove(bomb_p1_def)
@@ -74,9 +77,11 @@ class Bomb():
 
                                 box.remove_box(screen,(bomb_p1[0],bomb_p1[1]))
                                 player1_bomb_location.remove(bomb_p1)
+                                dropped_bomb_sound.play()
 
                     box.remove_box(screen,(player1_bomb_x_0,player1_bomb_y_0))
                     player1_bomb_location.remove(player1_bomb_location[0])
+                    dropped_bomb_sound.play()
 
             #Player2 bomb events:
             for index, player2_bomb_info in enumerate(player2_bomb_location):
@@ -110,7 +115,7 @@ class Bomb():
                                 bomb_p2_def[2]-=1  #decrease default bomb turn, when turn is not 0
 
                                 player2_bomb_location.remove(player2_bomb_location[0])  # if there is a default bomb near Player1's bombs, Player1's bombs will explode
-
+                                dropped_bomb_sound.play()
 
                                 if bomb_p2_def[2]==0:       #if default bomb turn's is 0, it will explode 
                                     default_bomb_location.remove(bomb_p2_def)
@@ -125,9 +130,11 @@ class Bomb():
 
                                 box.remove_box(screen,(bomb_p2[0],bomb_p2[1]))
                                 player2_bomb_location.remove(bomb_p2)
+                                dropped_bomb_sound.play()
 
                     box.remove_box(screen,(player2_bomb_x_0,player2_bomb_y_0))
                     player2_bomb_location.remove(player2_bomb_location[0])
+                    dropped_bomb_sound.play()
 
             #Default bomb events:
             for index, default_bomb_info in enumerate(default_bomb_location):

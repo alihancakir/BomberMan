@@ -14,6 +14,9 @@ FPS=60
 
 pygame.init()
 font = pygame.font.Font(None, 25)
+
+
+
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 pygame.display.set_caption("BomberMan")
@@ -41,3 +44,28 @@ while running:
     dt=clock.tick(FPS)/1000
 
 pygame.quit()  
+
+
+
+#####################################################################################################################
+#                                                                                                                   #
+#                                                                                                                   #
+#        #to do:                                                                                                    #
+#                                                                                                                   #
+#            # if any plyayer close to default bomb(and turn is it 0 ?), the player will be died.                   #
+#                                                                                                                   #
+#            # if any player close to enemy player's first bomb or chain reaction bomb, the player will be died.    #
+#                                                                                                                   #
+#            # add skore board.                                                                                     #
+#                                                                                                                   #
+#                                                                                                                   #
+#                                                                                                                   #
+#####################################################################################################################
+
+
+
+
+
+
+
+#######################################

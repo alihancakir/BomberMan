@@ -1,6 +1,7 @@
 
 import pygame
 import random
+import time
 
 SCREEN_WIDTH=600
 SCREEN_HEIGHT=600
@@ -18,7 +19,10 @@ box_location_handle = [
                         ]
 
 box_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/box.png")
-scaled_image = pygame.transform.scale(box_imagine, (40, 40))  
+box_scaled_image = pygame.transform.scale(box_imagine, (40, 40))
+
+explode_bomb_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/blast.png")
+explode_bomb_scaled_image = pygame.transform.scale(explode_bomb_imagine, (60, 60))
 
 
 class Box():
@@ -30,9 +34,7 @@ class Box():
             x_location_start_box,y_location_start_box=box_location_handle[index]           
             for x in range(x_location_start_box,x_location_start_box+TILE_SIZE,TILE_SIZE):
                 for y in range(y_location_start_box,y_location_start_box+TILE_SIZE,TILE_SIZE):
-                    screen.blit(scaled_image, (x, y))
-
-
+                    screen.blit(box_scaled_image, (x, y))
         return box_location_handle
         
     def add_box(self):
@@ -51,8 +53,13 @@ class Box():
                                                                         ############################################################################
 
     def remove_box(self,screen,player1_bomb_info):
-        
+
+        dropped_bomb_time = time.time()
+
         self.screen=screen
+
+        font15 = pygame.font.Font(None, 25)
+
         bomb_x,bomb_y=player1_bomb_info
             
         delete_box_directions = {
@@ -65,14 +72,13 @@ class Box():
         }
 
         for direction, (x, y) in delete_box_directions.items():
-                if (x, y) in box_location_handle:
-                    
-                    box_location_handle.remove((x, y))
-                    rect = pygame.Rect(x, y, TILE_SIZE, TILE_SIZE)
-                    
-                    pygame.draw.rect(self.screen, "white", rect, 0)
+                   
+                screen.blit(explode_bomb_scaled_image, (x, y))
 
-        
+                if (x, y) in box_location_handle:
+                    box_location_handle.remove((x, y))
+
+                   
         
 
     
