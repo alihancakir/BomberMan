@@ -2,8 +2,8 @@ import pygame
 from box import Box
 from bomb import Bomb
 
-player1_position=pygame.Vector2(20,580)     #start position for player1
-player2_position=pygame.Vector2(580,20)     #start position for player2
+player1_position=pygame.Vector2(20,620)     #start position for player1
+player2_position=pygame.Vector2(580,60)     #start position for player2
 
 box=Box()
 bomb=Bomb()
@@ -51,8 +51,9 @@ class Player():
         # Bomb information
         self.default_bomb_location = [
                                     ##theese bomb could be random location add in here
-                                    [20, 580, 1], [20, 380, 1], [20, 100, 3], [100, 20, 1], [100, 220, 2],
-                                    [300, 180, 2], [420, 140, 1], [420, 20, 1], [540, 260, 1], [540, 500, 3]                      
+                                    [20, 580, 1], [20, 380, 1], [20, 100, 3], [100, 60, 1], [100, 220, 2],
+                                    [300, 180, 2], [420, 140, 1], [420, 60, 1], [540, 260, 1], [540, 500, 3],
+                                    [300, 580, 2], [420, 540, 3], [460, 500, 1], [540, 380, 1], [540, 580, 3]
                                     ]
 
         self.player1_bomb_location = []
@@ -78,14 +79,14 @@ class Player():
 
         if keys[pygame.K_w]:
             self.new_position_y_player1=(self.new_position_y_player1+2)%10             
-            if self.new_position_y_player1== 0 and player1_position.y > 40:
+            if self.new_position_y_player1== 0 and player1_position.y > 80:
                 test_target=any(value_box_location == (player1_position.x-20,player1_position.y-60) for value_box_location in box_location)     
                 if test_target==0:  
                     player1_position.y-=40
 
         if keys[pygame.K_s]:
             self.new_position_y_player1=(self.new_position_y_player1+2)%10             
-            if self.new_position_y_player1== 0 and player1_position.y < 560:
+            if self.new_position_y_player1== 0 and player1_position.y < 620:
                 test_target=any(value_box_location == (player1_position.x-20,player1_position.y+20) for value_box_location in box_location)     
                 if test_target==0:  
                     player1_position.y+=40
@@ -128,14 +129,14 @@ class Player():
 
         if keys[pygame.K_UP]:
             self.new_position_y_player2=(self.new_position_y_player2+2)%10             
-            if self.new_position_y_player2== 0 and player2_position.y > 40:
+            if self.new_position_y_player2== 0 and player2_position.y > 80:
                 test_target=any(value_box_location == (player2_position.x-20,player2_position.y-60) for value_box_location in box_location)     
                 if test_target==0:  
                     player2_position.y-=40
 
         if keys[pygame.K_DOWN]:
             self.new_position_y_player2=(self.new_position_y_player2+2)%10             
-            if self.new_position_y_player2== 0 and player2_position.y < 560:
+            if self.new_position_y_player2== 0 and player2_position.y < 620:
                 test_target=any(value_box_location == (player2_position.x-20,player2_position.y+20) for value_box_location in box_location)     
                 if test_target==0:  
                     player2_position.y+=40

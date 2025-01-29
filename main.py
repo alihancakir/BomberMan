@@ -6,10 +6,9 @@ from grid import Grid
 from box import Box
 from player import Player
 from bomb import Bomb
-#from ui import Ui
 
 SCREEN_WIDTH=600
-SCREEN_HEIGHT=600
+SCREEN_HEIGHT=640
 TILE_SIZE=40
 FPS=100
 
@@ -31,7 +30,6 @@ font25 = pygame.font.Font(None, 25)
 main_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/main2.png")
 main_scaled_image = pygame.transform.scale(main_imagine, (600, 600))
 
-winner=None
 running = True
 
 enter_event_for_toggle=False
@@ -66,31 +64,24 @@ while running:
 
         if player1_live_event==3:                     
             winner="PLAYER 1"
+            winner_text =font25.render(f" {winner} WON", True, "black")
+            screen.blit(winner_text, (235, 15))
+
         if player2_live_event==3:
             winner="PLAYER 2"
+            winner_text =font25.render(f" {winner} WON", True, "black")
+            screen.blit(winner_text, (235, 15))
 
-        p1_text =font25.render(f"SCORE: {player1_live_event}", True, "black")
-        screen.blit(p1_text, (20, 20))
 
-        p2_text =font25.render(f"SCORE: {player2_live_event}", True, "black")
-        screen.blit(p2_text, (500, 20))
+        p1_text =font25.render(f"P1 SCORE: {player1_live_event}", True, "red")
+        screen.blit(p1_text, (10, 15))
+
+        p2_text =font25.render(f"P2 SCORE: {player2_live_event}", True, "blue")
+        screen.blit(p2_text, (490, 15))
 
     pygame.display.flip()
     dt=clock.tick(FPS)/1000
 
 pygame.quit()  
 
-#####################################################################################################################
-#                                                                                                                   #
-#                                                                                                                   #
-#        #to do:     #COMPLETED#                                                                                    #
-#                                                                                                                   #
-#       +    # if any plyayer close to default bomb(and turn is it 0 ?), the player will be died.                   #
-#                                                                                                                   #
-#       +    # if any player close to enemy player's first bomb or chain reaction bomb, the player will be died.    #
-#                                                                                                                   #
-#       +    # add score board.                                                                                     #
-#                                                                                                                   #
-#                                                                                                                   #
-#####################################################################################################################
   
