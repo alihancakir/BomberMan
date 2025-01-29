@@ -1,1 +1,1 @@
-player2_live_event
+player2_bomb_x_0

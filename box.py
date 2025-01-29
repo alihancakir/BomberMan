@@ -1,4 +1,3 @@
-
 import pygame
 import random
 import time
@@ -24,7 +23,6 @@ box_scaled_image = pygame.transform.scale(box_imagine, (40, 40))
 explode_bomb_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/blast.png")
 explode_bomb_scaled_image = pygame.transform.scale(explode_bomb_imagine, (60, 60))
 
-
 class Box():
 
     def draw_box(self,screen):
@@ -41,26 +39,18 @@ class Box():
         added_random_box_location_x=random.randrange(0, 600, 40)  
         added_random_box_location_y=random.randrange(0, 640, 40)
         box_location_handle.append(((added_random_box_location_x),(added_random_box_location_y)))
-                  
+                                                                 
+############################################################################
+#                                                                          #
+#  # first in first out. First bomb will explode when bombs count is 3. #  #
+#  # if the bomb near other bombs in PLUS(+) way, they are will explode.#  # 
+#                                                                          #
+############################################################################
 
-
-                                                
-                                                                        ############################################################################
-                                                                        #                                                                          #
-                                                                        #  # first in first out. First bomb will explode when bombs count is 3. #  #
-                                                                        #  # if the bomb near other bombs in PLUS(+) way, they are will explode.#  # 
-                                                                        #                                                                          #
-                                                                        ############################################################################
-
-    def remove_box(self,screen,player1_bomb_info):
-
-        dropped_bomb_time = time.time()
+    def remove_box(self,screen,player_bomb_info):
 
         self.screen=screen
-
-        font15 = pygame.font.Font(None, 25)
-
-        bomb_x,bomb_y=player1_bomb_info
+        bomb_x,bomb_y=player_bomb_info
             
         delete_box_directions = {
 
@@ -77,12 +67,3 @@ class Box():
 
                 if (x, y) in box_location_handle:
                     box_location_handle.remove((x, y))
-
-                   
-        
-
-    
-        
-        
-
-    

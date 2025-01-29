@@ -1,12 +1,6 @@
-
 import pygame 
 from box import Box
 from bomb import Bomb
-
-SCREEN_WIDTH=600
-SCREEN_HEIGHT=600
-TILE_SIZE=40
-
 
 player1_position=pygame.Vector2(20,580)     #start position for player1
 player2_position=pygame.Vector2(580,20)     #start position for player2
@@ -14,22 +8,14 @@ player2_position=pygame.Vector2(580,20)     #start position for player2
 box=Box()
 bomb=Bomb()
 
-
 player1_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/player2.png")
 player1_scaled_image = pygame.transform.scale(player1_imagine, (40, 40))
 
 player2_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/robot.png")
 player2_scaled_image = pygame.transform.scale(player2_imagine, (35, 35)) 
 
-
-
 dropped_bomb_sound = pygame.mixer.Sound("C:/Users/Nitro/Desktop/BomberMan3/sound/drop_bomb.wav")
-
-
-
-
-
-
+invalid_sound = pygame.mixer.Sound("C:/Users/Nitro/Desktop/BomberMan3/sound/invalid.mp3")
 
 class Player():
 
@@ -50,10 +36,6 @@ class Player():
         self.new_position_x_player2 = 0
         self.new_position_y_player2 = 0
 
-        # Which player added how many bombs
-        self.player1_bomb_count=0
-        self.player2_bomb_count=0
-
         # Bomb and event state
         self.space_event_for_toggle = False
         self.enter_event_for_toggle = False
@@ -63,10 +45,8 @@ class Player():
         self.player1_position = pygame.Vector2(20, 580)
         self.player2_position = pygame.Vector2(580, 20)
 
-
                                                       #[bomb X    ,bomb Y  ,bomb TURN]
                                                       #[bomb_x    ,bomb_y  ,bomb_turn]
-
 
         # Bomb information
         self.default_bomb_location = [
@@ -77,22 +57,21 @@ class Player():
 
         self.player1_bomb_location = []
 
-
         self.player2_bomb_location = []
+
+        self.font15 = pygame.font.Font(None, 25)
+
 
         # Game objects
         self.box = Box()
         self.bomb = Bomb()
-
-        
 
     def move(self,keys,screen):
         self.screen=screen
         self.keys=keys
 
         box_location=box.draw_box(screen)
-        
-        
+             
 ######################################################################################################################################################################################
 ####################################################################################  PLAYER1  #######################################################################################
 ######################################################################################################################################################################################
@@ -111,7 +90,6 @@ class Player():
                 if test_target==0:  
                     player1_position.y+=40
 
-
         if keys[pygame.K_a]: 
             self.new_position_x_player1= (self.new_position_x_player1+2) % 10                          
             if  self.new_position_x_player1== 0 and player1_position.x > 40:
@@ -126,18 +104,22 @@ class Player():
                 if test_target==0:
                     player1_position.x+=40
 
-
         if keys[pygame.K_SPACE]:                                
             self.space_event_for_toggle=True    
 
-        if self.space_event_for_toggle==True and keys[pygame.K_SPACE]==False:    
-            self.player1_bomb_location.append([int(player1_position.x), int(player1_position.y),1])        
-            self.space_event_for_toggle=False
+        if self.space_event_for_toggle and not keys[pygame.K_SPACE]:
             dropped_bomb_sound.play()
-            self.player1_bomb_count+=1
+            current_player1_position = [int(player1_position.x), int(player1_position.y), 1]
+            
+            #do not drop player1's bomb , if the bomb in same grid with same bomb
+            if current_player1_position not in self.player1_bomb_location:
+                
+                self.player1_bomb_location.append(current_player1_position)
+            else:
+                invalid_sound.play()
 
-        
-        
+            self.space_event_for_toggle = False
+            
         screen.blit(player1_scaled_image, (int(player1_position.x)-20,int(player1_position.y)-20))
 
 ######################################################################################################################################################################################
@@ -158,7 +140,6 @@ class Player():
                 if test_target==0:  
                     player2_position.y+=40
 
-
         if keys[pygame.K_LEFT]: 
             self.new_position_y_player2= (self.new_position_y_player2+2) % 10                          
             if self.new_position_y_player2== 0 and player2_position.x > 40:
@@ -173,25 +154,25 @@ class Player():
                 if test_target==0:
                     player2_position.x+=40
 
-
         if keys[pygame.K_RETURN]:                      
             self.enter_event_for_toggle=True    
 
         if self.enter_event_for_toggle==True and keys[pygame.K_RETURN]==False:
-            self.player2_bomb_location.append([int(player2_position.x), int(player2_position.y),1])        
-            self.enter_event_for_toggle=False
             dropped_bomb_sound.play()
-            self.player2_bomb_count+=1
-
+            current_player2_position = [int(player2_position.x), int(player2_position.y), 1]
+            #do not drop player2's bomb , if the bomb in same grid with same bomb
+            if current_player2_position not in self.player2_bomb_location:
+                self.player2_bomb_location.append(current_player2_position)
+            else:
+                invalid_sound.play()
+            self.enter_event_for_toggle = False
+            
             
         screen.blit(player2_scaled_image, (int(player2_position.x)-20,int(player2_position.y)-18))
-        
-       
-
+               
 ######################################################################################################################################################################################
 ####################################################################################   GENERAL  ######################################################################################
 ######################################################################################################################################################################################
-
 
         if keys[pygame.K_p]:                         
             self.new_box_add_flag=True
@@ -202,16 +183,10 @@ class Player():
         
         bomb.add_bomb_location(
                                 screen,
-                                self.default_bomb_location,
-                                self.player1_bomb_location,
-                                self.player2_bomb_location,
-                                (int(player1_position.x),int(player1_position.y)),
-                                (int(player2_position.x),int(player2_position.y))
+                                    self.default_bomb_location,
+                                        self.player1_bomb_location,
+                                            self.player2_bomb_location,
+                                                (int(player1_position.x),int(player1_position.y)),
+                                                    (int(player2_position.x),int(player2_position.y))
                                 )
-        
-        if self.player1_bomb_count==3:
-            self.player1_bomb_count=0
-        
-        if self.player2_bomb_count==3:
-            self.player2_bomb_count=0
-                
+   
