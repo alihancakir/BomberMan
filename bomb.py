@@ -61,6 +61,8 @@ class Bomb():
                             "going down":   (player1_bomb_x_0     , player1_bomb_y_0 + 40)
                         }
                 
+
+                
                 #do not drop player1's bomb , if the bomb in same grid with default bomb                
                 for player1_bombs in player1_bomb_location:
                     for bomb_p1_def_check in default_bomb_location:
@@ -87,6 +89,31 @@ class Bomb():
                                 explode_bomb_sound.play()
 
                                 if bomb_p1_def[2]==0:       #if default bomb turn's is 0, it will explode 
+
+                                    bomb_directions_p1_close_to_default_check= { #if the bomb, close to other bombs                                            
+
+                                            "going right":  (bomb_p1_def[0] + 40, bomb_p1_def[1]     ),
+                                            "going left":   (bomb_p1_def[0] - 40, bomb_p1_def[1]     ),
+                                            "going up":     (bomb_p1_def[0]     , bomb_p1_def[1] - 40),
+                                            "going down":   (bomb_p1_def[0]     , bomb_p1_def[1] + 40)
+                                        }
+
+                                    # whatever close to default bomb, the stuff; will be died or exploded
+                                    for bomb_p1_def_close_check in player1_bomb_location:
+                                        for direection, (x,y) in bomb_directions_p1_close_to_default_check.items():
+                                            if (x,y)== (bomb_p1_def_close_check[0],bomb_p1_def_close_check[1]):
+                                                player1_bomb_location.remove(bomb_p1_def_close_check)
+
+                                            if (x,y)==(player1_position):
+
+                                                #player1 died
+                                                player2_score+=1
+
+                                            if (x,y)==(player2_position):
+
+                                                #player2 died
+                                                player1_score+=1                          
+
                                     default_bomb_location.remove(bomb_p1_def)
                                     box.remove_box(screen,(player1_bomb_x_0,player1_bomb_y_0))
                                     box.remove_box(screen,(bomb_p1_def[0],bomb_p1_def[1]))
@@ -105,8 +132,7 @@ class Bomb():
                         
                         #player2 died
                         player1_score+=1
-                                         
-                                 
+                                                                
                     # remove first added player1's bomb if no default bomb close to the first bomb
                     for direction, (x, y) in bomb_directions_p1.items():
                         for bomb_p1 in player1_bomb_location:
@@ -171,7 +197,32 @@ class Bomb():
                                 player2_bomb_location.remove(player2_bomb_location[0])  # if there is a default bomb near Player1's bombs, Player1's bombs will explode
                                 explode_bomb_sound.play()
 
-                                if bomb_p2_def[2]==0:       #if default bomb turn's is 0, it will explode 
+                                if bomb_p2_def[2]==0:       #if default bomb turn's is 0, it will explode
+
+                                    bomb_directions_p2_close_to_default_check= { #if the bomb, close to other bombs                                            
+
+                                            "going right":  (bomb_p2_def[0] + 40, bomb_p2_def[1]     ),
+                                            "going left":   (bomb_p2_def[0] - 40, bomb_p2_def[1]     ),
+                                            "going up":     (bomb_p2_def[0]     , bomb_p2_def[1] - 40),
+                                            "going down":   (bomb_p2_def[0]     , bomb_p2_def[1] + 40)
+                                        }
+
+                                    # whatever close to default bomb, the stuff; will be died or exploded
+                                    for bomb_p2_def_close_check in player2_bomb_location:
+                                        for direection, (x,y) in bomb_directions_p2_close_to_default_check.items():
+                                            if (x,y)== (bomb_p2_def_close_check[0],bomb_p2_def_close_check[1]):
+                                                player2_bomb_location.remove(bomb_p2_def_close_check)
+
+                                            if (x,y)==(player1_position):
+
+                                                #player1 died
+                                                player2_score+=1
+
+                                            if (x,y)==(player2_position):
+
+                                                #player2 died
+                                                player1_score+=1
+
                                     default_bomb_location.remove(bomb_p2_def)
                                     box.remove_box(screen,(player2_bomb_x_0,player2_bomb_y_0))
                                     box.remove_box(screen,(bomb_p2_def[0],bomb_p2_def[1]))
@@ -184,6 +235,7 @@ class Bomb():
 
                             #player1 died.
                             player2_score+=1
+
                     #the bomb if player1 is on top
                     if  (player2_bomb_x_0,player2_bomb_y_0)==(player1_position):  
 
