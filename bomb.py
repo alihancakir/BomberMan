@@ -16,8 +16,11 @@ default_bomb_scaled_image = pygame.transform.scale(default_bomb_imagine, (40, 40
 explode_bomb_sound = pygame.mixer.Sound("C:/Users/Nitro/Desktop/BomberMan3/sound/bomb_explode.mp3")
 invalid_sound = pygame.mixer.Sound("C:/Users/Nitro/Desktop/BomberMan3/sound/invalid.mp3")
 
+died = pygame.mixer.Sound("C:/Users/Nitro/Desktop/BomberMan3/sound/died.mp3")
+
 player1_score=0
 player2_score=0
+
 
 class Bomb():
 
@@ -32,6 +35,7 @@ class Bomb():
                         ):
             global player1_score
             global player2_score
+
 
             self.font15 = pygame.font.Font(None, 25)
 
@@ -60,9 +64,7 @@ class Bomb():
                             "going up":     (player1_bomb_x_0     , player1_bomb_y_0 - 40),
                             "going down":   (player1_bomb_x_0     , player1_bomb_y_0 + 40)
                         }
-                
-
-                
+                      
                 #do not drop player1's bomb , if the bomb in same grid with default bomb                
                 for player1_bombs in player1_bomb_location:
                     for bomb_p1_def_check in default_bomb_location:
@@ -101,18 +103,23 @@ class Bomb():
                                     # whatever close to default bomb, the stuff; will be died or exploded
                                     for bomb_p1_def_close_check in player1_bomb_location:
                                         for direection, (x,y) in bomb_directions_p1_close_to_default_check.items():
+                                            
                                             if (x,y)== (bomb_p1_def_close_check[0],bomb_p1_def_close_check[1]):
                                                 player1_bomb_location.remove(bomb_p1_def_close_check)
-
-                                            if (x,y)==(player1_position):
+                                                
+                                            elif (x,y)==(player1_position):
 
                                                 #player1 died
                                                 player2_score+=1
+                                                player1_bomb_location.remove(bomb_p1_def_close_check)
+                                                died.play()
 
-                                            if (x,y)==(player2_position):
+                                            elif (x,y)==(player2_position):
 
                                                 #player2 died
-                                                player1_score+=1                          
+                                                player1_score+=1
+                                                player1_bomb_location.remove(bomb_p1_def_close_check)
+                                                died.play()
 
                                     default_bomb_location.remove(bomb_p1_def)
                                     box.remove_box(screen,(player1_bomb_x_0,player1_bomb_y_0))
@@ -126,12 +133,14 @@ class Bomb():
 
                             #player2 died
                             player1_score+=1
+                            died.play()
 
                     #the bomb if player2 is on top        
                     if  (player1_bomb_x_0,player1_bomb_y_0)==(player2_position):
                         
                         #player2 died
                         player1_score+=1
+                        died.play()
                                                                 
                     # remove first added player1's bomb if no default bomb close to the first bomb
                     for direction, (x, y) in bomb_directions_p1.items():
@@ -213,15 +222,19 @@ class Bomb():
                                             if (x,y)== (bomb_p2_def_close_check[0],bomb_p2_def_close_check[1]):
                                                 player2_bomb_location.remove(bomb_p2_def_close_check)
 
-                                            if (x,y)==(player1_position):
+                                            elif (x,y)==(player1_position):
 
                                                 #player1 died
                                                 player2_score+=1
+                                                player2_bomb_location.remove(bomb_p2_def_close_check)
+                                                died.play()
 
-                                            if (x,y)==(player2_position):
+                                            elif (x,y)==(player2_position):
 
                                                 #player2 died
                                                 player1_score+=1
+                                                player2_bomb_location.remove(bomb_p2_def_close_check)
+                                                died.play()
 
                                     default_bomb_location.remove(bomb_p2_def)
                                     box.remove_box(screen,(player2_bomb_x_0,player2_bomb_y_0))
@@ -235,12 +248,14 @@ class Bomb():
 
                             #player1 died.
                             player2_score+=1
-
+                            died.play()
+                            
                     #the bomb if player1 is on top
                     if  (player2_bomb_x_0,player2_bomb_y_0)==(player1_position):  
 
                         #player1 died
                         player2_score+=1
+                        died.play()
                                         
                     for direction, (x, y) in bomb_directions_p2.items():
                         for bomb_p2 in player2_bomb_location:
@@ -262,6 +277,6 @@ class Bomb():
 
                 bomb_info_text_default = self.font15.render(f"{default_bomb_turn}", True, "white")
                 screen.blit(bomb_info_text_default, (default_bomb_x-5, default_bomb_y-6))
-       
+
     def live_event(self):
         return player1_score,player2_score

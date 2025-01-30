@@ -41,6 +41,11 @@ class Player():
         self.enter_event_for_toggle = False
         self.new_box_add_flag = False
 
+        # Go to base
+        self.live_toggle_flag_p1=False
+        self.live_toggle_flag_p2=False
+
+
         # Player positions
         self.player1_position = pygame.Vector2(20, 580)
         self.player2_position = pygame.Vector2(580, 20)
@@ -190,4 +195,5 @@ class Player():
                                                 (int(player1_position.x),int(player1_position.y)),
                                                     (int(player2_position.x),int(player2_position.y))
                                 )
+
    
