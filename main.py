@@ -25,6 +25,7 @@ box= Box()
 player=Player()
 bomb=Bomb()
 
+font20 = pygame.font.Font(None, 20)
 font25 = pygame.font.Font(None, 25)
 font100= pygame.font.Font(None, 100)
 
@@ -41,6 +42,14 @@ game_finished=False
 
 winner=None
 
+
+main_default_bomb_location=[
+                                ##theese bomb could be random location add in here
+                                [20, 580, 1], [20, 380, 1], [20, 100, 3], [100, 60, 1], [100, 220, 2],
+                                [300, 180, 2], [420, 140, 1], [420, 60, 1], [540, 260, 1], [540, 500, 3],
+                                [300, 580, 2], [420, 540, 3], [460, 500, 1], [540, 380, 1], [540, 580, 3]
+                            ]
+
 while running:
     for event in pygame.event.get():
          if event.type == pygame.QUIT:
@@ -51,9 +60,9 @@ while running:
     #main menu
     if enter_event_for_toggle == False:
         screen.fill("black")
-        screen.blit(main_scaled_image, (5,100))
-        enemy_text =font25.render(f"PRESS G", True, "white")
-        screen.blit(enemy_text, (250, 500))
+        screen.blit(main_scaled_image, (5,10))
+        enemy_text =font25.render(f"PRESS G FOR GO", True, "white")
+        screen.blit(enemy_text, (450, 620))
         
     #run game
     if keys[pygame.K_g]:
@@ -64,7 +73,7 @@ while running:
         box.draw_box(screen)
         grid.draw_grid(screen)
 
-        player.move(keys,screen)
+        player.move(keys,screen,main_default_bomb_location)
 
         #players died board
         player1_live_event,player2_live_event=bomb.live_event()

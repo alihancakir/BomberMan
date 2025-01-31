@@ -50,16 +50,9 @@ class Player():
         self.player1_position = pygame.Vector2(20, 580)
         self.player2_position = pygame.Vector2(580, 20)
 
-                                                      #[bomb X    ,bomb Y  ,bomb TURN]
-                                                      #[bomb_x    ,bomb_y  ,bomb_turn]
 
         # Bomb information
-        self.default_bomb_location = [
-                                    ##theese bomb could be random location add in here
-                                    [20, 580, 1], [20, 380, 1], [20, 100, 3], [100, 60, 1], [100, 220, 2],
-                                    [300, 180, 2], [420, 140, 1], [420, 60, 1], [540, 260, 1], [540, 500, 3],
-                                    [300, 580, 2], [420, 540, 3], [460, 500, 1], [540, 380, 1], [540, 580, 3]
-                                    ]
+                                    
 
         self.player1_bomb_location = []
 
@@ -72,10 +65,11 @@ class Player():
         self.box = Box()
         self.bomb = Bomb()
 
-    def move(self,keys,screen):
+    def move(self,keys,screen,default_bomb_location_from_user):
         self.screen=screen
         self.keys=keys
 
+        self.default_bomb_location = default_bomb_location_from_user
         box_location=box.draw_box(screen)
              
 ######################################################################################################################################################################################

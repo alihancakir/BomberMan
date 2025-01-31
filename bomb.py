@@ -22,7 +22,11 @@ player1_score=0
 player2_score=0
 
 
+
+
 class Bomb():
+
+
 
     def add_bomb_location(
                         self,
