@@ -1,1 +1,1 @@
-self.default_bomb_location
+default_bomb_info
