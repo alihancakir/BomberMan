@@ -72,16 +72,23 @@ class Bomb():
                       
                 #do not drop player1's bomb , if the bomb in same grid with default bomb                
                 for player1_bombs in player1_bomb_location:
+
                     for bomb_p1_def_check in default_bomb_location:
+                        
                         if  (player1_bombs[0],player1_bombs[1]) == (bomb_p1_def_check[0],bomb_p1_def_check[1]):
 
                             invalid_sound.play()
                             player1_bomb_location.remove(player1_bombs)
-            
-                        else:
-                            screen.blit(player1_bomb_scaled_image, (player1_bomb_x-20,player1_bomb_y-20))   #player1's bomb image
-                            bomb_info_text_player1 = self.font15.render(f"{player1_turn}", True, "white")
-                            screen.blit(bomb_info_text_player1, (player1_bomb_x-10, player1_bomb_y-6))
+   
+                        
+                    screen.blit(player1_bomb_scaled_image, (player1_bomb_x-20,player1_bomb_y-20))   #player1's bomb image
+                    bomb_info_text_player1 = self.font15.render(f"{player1_turn}", True, "white")
+                    screen.blit(bomb_info_text_player1, (player1_bomb_x-10, player1_bomb_y-6))
+
+                    bomb_info_text_player3 = self.font15.render(f"{player1_bomb_location}", True, "red")
+                    screen.blit(bomb_info_text_player3, (20, 100))
+
+
 
                 if len(player1_bomb_location)==3:
 
@@ -190,14 +197,15 @@ class Bomb():
                 
                 #do not drop player2's bomb , if theese in same grid                 
                 for player2_bombs in player2_bomb_location:
+
                     for bomb_p2_def_check in default_bomb_location:
                         if  (player2_bombs[0],player2_bombs[1]) == (bomb_p2_def_check[0],bomb_p2_def_check[1]):
                             invalid_sound.play()
                             player2_bomb_location.remove(player2_bombs)
-                        else:
-                            screen.blit(player2_bomb_scaled_image, (player2_bomb_x-20,player2_bomb_y-20))   #player1's bomb image
-                            bomb_info_text_player2 = self.font15.render(f"{player2_turn}", True, "white")
-                            screen.blit(bomb_info_text_player2, (player2_bomb_x-10, player2_bomb_y-6))
+                        
+                    screen.blit(player2_bomb_scaled_image, (player2_bomb_x-20,player2_bomb_y-20))   #player1's bomb image
+                    bomb_info_text_player2 = self.font15.render(f"{player2_turn}", True, "white")
+                    screen.blit(bomb_info_text_player2, (player2_bomb_x-10, player2_bomb_y-6))
 
                 if len(player2_bomb_location)==3:
 

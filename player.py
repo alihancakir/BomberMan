@@ -77,28 +77,28 @@ class Player():
 ####################################################################################  PLAYER1  #######################################################################################
 ######################################################################################################################################################################################
 
-        if keys[pygame.K_w]:
+        if keys[pygame.K_w] and not keys[pygame.K_s]:
             self.new_position_y_player1=(self.new_position_y_player1+2)%10             
             if self.new_position_y_player1== 0 and player1_position.y > 80:
                 test_target=any(value_box_location == (player1_position.x-20,player1_position.y-60) for value_box_location in box_location)     
                 if test_target==0:  
                     player1_position.y-=40
 
-        if keys[pygame.K_s]:
+        if keys[pygame.K_s] and not keys[pygame.K_w]:
             self.new_position_y_player1=(self.new_position_y_player1+2)%10             
             if self.new_position_y_player1== 0 and player1_position.y < 620:
                 test_target=any(value_box_location == (player1_position.x-20,player1_position.y+20) for value_box_location in box_location)     
                 if test_target==0:  
                     player1_position.y+=40
 
-        if keys[pygame.K_a]: 
+        if keys[pygame.K_a] and not keys[pygame.K_d]: 
             self.new_position_x_player1= (self.new_position_x_player1+2) % 10                          
             if  self.new_position_x_player1== 0 and player1_position.x > 40:
                 test_target=any(value_box_location == (player1_position.x-60,player1_position.y-20) for value_box_location in box_location)     
                 if test_target==0: 
                     player1_position.x-=40
 
-        if keys[pygame.K_d]:
+        if keys[pygame.K_d] and not keys[pygame.K_a]:
             self.new_position_x_player1= (self.new_position_x_player1+2) % 10                          
             if self.new_position_x_player1== 0 and player1_position.x<560:
                 test_target=any(value_box_location == (player1_position.x+20,player1_position.y-20) for value_box_location in box_location)     
@@ -127,28 +127,28 @@ class Player():
 ####################################################################################  PLAYER2   ######################################################################################
 ######################################################################################################################################################################################    
 
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_UP] and not keys[pygame.K_DOWN]:
             self.new_position_y_player2=(self.new_position_y_player2+2)%10             
             if self.new_position_y_player2== 0 and player2_position.y > 80:
                 test_target=any(value_box_location == (player2_position.x-20,player2_position.y-60) for value_box_location in box_location)     
                 if test_target==0:  
                     player2_position.y-=40
 
-        if keys[pygame.K_DOWN]:
+        if keys[pygame.K_DOWN] and not keys[pygame.K_UP]:
             self.new_position_y_player2=(self.new_position_y_player2+2)%10             
             if self.new_position_y_player2== 0 and player2_position.y < 620:
                 test_target=any(value_box_location == (player2_position.x-20,player2_position.y+20) for value_box_location in box_location)     
                 if test_target==0:  
                     player2_position.y+=40
 
-        if keys[pygame.K_LEFT]: 
+        if keys[pygame.K_LEFT] and not keys[pygame.K_RIGHT]: 
             self.new_position_y_player2= (self.new_position_y_player2+2) % 10                          
             if self.new_position_y_player2== 0 and player2_position.x > 40:
                 test_target=any(value_box_location == (player2_position.x-60,player2_position.y-20) for value_box_location in box_location)     
                 if test_target==0: 
                     player2_position.x-=40
 
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] and not keys[pygame.K_LEFT]:
             self.new_position_y_player2= (self.new_position_y_player2+2) % 10                          
             if self.new_position_y_player2== 0 and player2_position.x<560:
                 test_target=any(value_box_location == (player2_position.x+20,player2_position.y-20) for value_box_location in box_location)     

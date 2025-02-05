@@ -214,8 +214,8 @@ pygame.quit()
 
 #fail:
 
-#couldn't see any bomb image when there are no defaut bombs. NOT SOLVED-
-# the players moving rapidly when pressed same time right and left button. NOT SOLVED-
+#couldn't see any bomb image when there are no defaut bombs. SOLVED+
+# the players moving rapidly when pressed same time right and left button. SOLVED+
 
 
 
