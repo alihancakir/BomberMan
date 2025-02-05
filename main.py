@@ -42,8 +42,6 @@ color_turn = "white"
 color_add_bomb = "white"
 color_go_with_default = "white"
 
-
-
 main_imagine = pygame.image.load("C:/Users/Nitro/Desktop/BomberMan3/pictures/main2.png")
 main_scaled_image = pygame.transform.scale(main_imagine, (600, 600))
 
@@ -53,17 +51,20 @@ g_event_for_toggle = False
 game_finished = False
 winner = None
 
+flag_for_added_default_bomb=False
+
 default_bomb_info = []
 
 chosen_default_bomb_info=[]
 
 main_default_bomb_location = [
-    [20, 580, 1], [20, 380, 1], [20, 100, 3], [100, 60, 1], [100, 220, 2],
-    [300, 180, 2], [420, 140, 1], [420, 60, 1], [540, 260, 1], [540, 500, 3],
-    [300, 580, 2], [420, 540, 3], [460, 500, 1], [540, 380, 1], [540, 580, 3]
+    
+            [20, 580, 1], [20, 380, 1], [20, 100, 3], [100, 60, 1], [100, 220, 2],
+            [300, 180, 2], [420, 140, 1], [420, 60, 1], [540, 260, 1], [540, 500, 3],
+            [300, 580, 2], [420, 540, 3], [460, 500, 1], [540, 380, 1], [540, 580, 3]
 ]
 
-previous_keys = [False] * 323  # Pygame'deki toplam tuş sayısı
+previous_keys = [False] * 323 
 
 while running:
     keys = pygame.key.get_pressed()
@@ -130,28 +131,28 @@ while running:
                             fail_log = ""
                             color_y = (92, 209, 20)
 
-            print(f"dizi: {default_bomb_info} {bomb_x}, {bomb_y}, {bomb_turn}")
+            print(f"the array: {default_bomb_info} {bomb_x}, {bomb_y}, {bomb_turn}")
 
     if not g_event_for_toggle:
         screen.fill("black")
         screen.blit(main_scaled_image, (5, 10))
         
-
         default_bomb_header2 = font25.render("->Press G For Quick Start With Default Bomb Map", True, color_add_bomb)
         screen.blit(default_bomb_header2, (100, 350))
 
         default_bomb_header = font25.render("->Press A For Add Default Bomb Map", True, color_go_with_default)
         screen.blit(default_bomb_header, (100, 370))
 
-        
-
         default_bomb_header2 = font25.render(f"{fail_log}", True, "red")
         screen.blit(default_bomb_header2, (20, 400))
 
-    if keys[pygame.K_a] and not previous_keys[pygame.K_a]:
+    if keys[pygame.K_a] and not previous_keys[pygame.K_a] and g_event_for_toggle==False:
         a_event_for_toggle = True
-
+        
+        box.add_random_box(a_event_for_toggle) #check, if default bomb added from user or not
+        
     if a_event_for_toggle:
+        flag_for_added_default_bomb=True
         color_add_bomb = "green"
         default_bomb_x = font25.render(f"default bomb x:{bomb_x}", True, color_x)
         screen.blit(default_bomb_x, (20, 430))
@@ -165,15 +166,19 @@ while running:
     if keys[pygame.K_g] and not previous_keys[pygame.K_g]:
         g_event_for_toggle = True
 
+        box.add_random_box(a_event_for_toggle) #check, if default bomb added from user or not
+
+        box.remove_box_default_bomb_location_event_check(screen,chosen_default_bomb_info) #if default bomb and box in same grid, remove box.
+        
+    if len(chosen_default_bomb_info)==0 and g_event_for_toggle==False and len(default_bomb_info)==0:
+        chosen_default_bomb_info=main_default_bomb_location
+
     if g_event_for_toggle:
+
         screen.fill("white")
-
         box.draw_box(screen)
-
         grid.draw_grid(screen)
-
-        player.move(keys, screen, main_default_bomb_location)
-
+        player.move(keys, screen, chosen_default_bomb_info)
         player1_live_event, player2_live_event = bomb.live_event()
 
         p1_text = font25.render(f"P1 SCORE: {player1_live_event}", True, "red")
@@ -193,9 +198,27 @@ while running:
         if game_finished:
             screen.fill("black")
             winner_text = font100.render(f"{winner} WON", True, "red")
-            screen.blit(winner_text, (20, 300))
+            screen.blit(winner_text, (40, 300))
 
     pygame.display.flip()
     dt = clock.tick(FPS) / 1000
 
 pygame.quit()
+
+
+#to do:
+#
+#add random box, but consider the default bomb location when you draw box. SOLVED+
+#add test default bomb map algorithm.   SOLVED+
+
+
+#fail:
+
+#couldn't see any bomb image when there are no defaut bombs. NOT SOLVED-
+# the players moving rapidly when pressed same time right and left button. NOT SOLVED-
+
+
+
+#the bug in box draw with when  pressed A. SOLVED+
+# box.remove_box_default_bomb_location_event_check(screen,(default_bomb_x-20,default_bomb_y-20))  -------> no going anything to  box.remov.... SOLVED+
+

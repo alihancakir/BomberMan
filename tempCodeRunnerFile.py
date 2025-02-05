@@ -1,1 +1,1 @@
-default_bomb_info
+a_event_for_toggle

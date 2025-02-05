@@ -70,7 +70,8 @@ class Player():
         self.keys=keys
 
         self.default_bomb_location = default_bomb_location_from_user
-        box_location=box.draw_box(screen)
+        box_location=box.box_event()
+        
              
 ######################################################################################################################################################################################
 ####################################################################################  PLAYER1  #######################################################################################
@@ -166,8 +167,7 @@ class Player():
             else:
                 invalid_sound.play()
             self.enter_event_for_toggle = False
-            
-            
+                    
         screen.blit(player2_scaled_image, (int(player2_position.x)-20,int(player2_position.y)-18))
                
 ######################################################################################################################################################################################
@@ -180,6 +180,7 @@ class Player():
         if keys[pygame.K_p]==0 and self.new_box_add_flag==True:                  
             self.new_box_add_flag=False
             box.add_box()
+
         
         bomb.add_bomb_location(
                                 screen,

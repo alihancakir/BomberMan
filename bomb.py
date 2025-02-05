@@ -40,6 +40,7 @@ class Bomb():
             global player1_score
             global player2_score
 
+            box_location=box.box_event()
 
             self.font15 = pygame.font.Font(None, 25)
 
@@ -76,6 +77,7 @@ class Bomb():
 
                             invalid_sound.play()
                             player1_bomb_location.remove(player1_bombs)
+            
                         else:
                             screen.blit(player1_bomb_scaled_image, (player1_bomb_x-20,player1_bomb_y-20))   #player1's bomb image
                             bomb_info_text_player1 = self.font15.render(f"{player1_turn}", True, "white")
@@ -241,6 +243,7 @@ class Bomb():
                                                 died.play()
 
                                     default_bomb_location.remove(bomb_p2_def)
+
                                     box.remove_box(screen,(player2_bomb_x_0,player2_bomb_y_0))
                                     box.remove_box(screen,(bomb_p2_def[0],bomb_p2_def[1]))
 
@@ -275,6 +278,7 @@ class Bomb():
 
             #Default bomb events:
             for index, default_bomb_info in enumerate(default_bomb_location):
+
                 default_bomb_x,default_bomb_y,default_bomb_turn=default_bomb_info
 
                 screen.blit(default_bomb_scaled_image, (default_bomb_x-20,default_bomb_y-20))
