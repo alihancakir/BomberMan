@@ -205,20 +205,8 @@ while running:
 
 pygame.quit()
 
-
 #to do:
 #
-#add random box, but consider the default bomb location when you draw box. SOLVED+
-#add test default bomb map algorithm.   SOLVED+
-
-
-#fail:
-
-#couldn't see any bomb image when there are no defaut bombs. SOLVED+
-# the players moving rapidly when pressed same time right and left button. SOLVED+
-
-
-
-#the bug in box draw with when  pressed A. SOLVED+
-# box.remove_box_default_bomb_location_event_check(screen,(default_bomb_x-20,default_bomb_y-20))  -------> no going anything to  box.remov.... SOLVED+
+#if the default bomb close to another default bomb, their turn's is must decrease. or it may explode. 
+#Meanwhile check to around. if any player has a bomb close to the default bomb, explode it.
 
