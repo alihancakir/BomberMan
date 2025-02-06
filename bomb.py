@@ -69,8 +69,7 @@ class Bomb():
                             "going up":     (player1_bomb_x_0     , player1_bomb_y_0 - 40),
                             "going down":   (player1_bomb_x_0     , player1_bomb_y_0 + 40)
                         }
-                
-                      
+                                  
                 #do not drop player1's bomb , if the bomb in same grid with default bomb                
                 for player1_bombs in player1_bomb_location:
 
@@ -80,51 +79,25 @@ class Bomb():
 
                             invalid_sound.play()
                             player1_bomb_location.remove(player1_bombs)
-   
                         
                     screen.blit(player1_bomb_scaled_image, (player1_bomb_x-20,player1_bomb_y-20))   #player1's bomb image
                     bomb_info_text_player1 = self.font15.render(f"{player1_turn}", True, "white")
                     screen.blit(bomb_info_text_player1, (player1_bomb_x-10, player1_bomb_y-6))
 
                 if len(player1_bomb_location)==3:
-
-                    """for default_bomb_info_test in default_bomb_location:
-                        default_bomb_directions_p1= { #if the bomb, close to other bombs                                            
-
-                                "going right":  (default_bomb_info_test[0] + 40, default_bomb_info_test[1]     ),
-                                "going left":   (default_bomb_info_test[0] - 40, default_bomb_info_test[1]     ),
-                                "going up":     (default_bomb_info_test[0]     , default_bomb_info_test[1] - 40),
-                                "going down":   (default_bomb_info_test[0]     , default_bomb_info_test[1] + 40)
-                            }
-                        
-                        for index,(x,y) in default_bomb_directions_p1.items():
-                            for default_bomb_info_test2 in default_bomb_location:
-
-                                if (default_bomb_info_test2[0],default_bomb_info_test2[1]) == (x,y):
-
-                                    if default_bomb_info_test2[2]==2:
-                                        default_bomb_info_test2[2]-=1
-
-                                    elif default_bomb_info_test2[2]==1:
-
-                                        default_bomb_info_test2[2]-=1
-
-                                    elif default_bomb_info_test2[2]==0:
-
-                                        default_bomb_location.remove(default_bomb_info_test2)"""
-                                
-                    for direction, (x, y) in bomb_directions_p1.items():   # it is for only default bomb close check
+           
+                    for direction, (x, y) in bomb_directions_p1.items():   # it is for only default bomb close to player1 bomb check
 
                         for bomb_p1_def in default_bomb_location:
 
-                            if (x, y) == (bomb_p1_def[0],bomb_p1_def[1]):
+                            if (x, y) == (bomb_p1_def[0],bomb_p1_def[1]):   # There is a default bomb near the player1 bomb
 
                                 bomb_p1_def[2]-=1  #decrease default bomb turn, when turn is not 0
 
                                 player1_bomb_location.remove(player1_bomb_location[0])  # if there is a default bomb near Player1's bombs, Player1's bombs will explode
                                 explode_bomb_sound.play()
 
-                                if bomb_p1_def[2]==0:       #if default bomb turn's is 0, it will explode 
+                                if bomb_p1_def[2]==0:    #if default bomb turn's is 0, it will explode 
 
                                     bomb_directions_p1_close_to_default_check= { #if the bomb, close to other bombs                                            
 
@@ -136,12 +109,11 @@ class Bomb():
 
                                     # whatever close to default bomb, the stuff; will be died or exploded
                                     for bomb_p1_def_close_check in player1_bomb_location:
-                                        for direection, (x,y) in bomb_directions_p1_close_to_default_check.items():
-
-                                                                              
+                                        for direection, (x,y) in bomb_directions_p1_close_to_default_check.items():                                          
+                               
                                             if (x,y)== (bomb_p1_def_close_check[0],bomb_p1_def_close_check[1]):
                                                 player1_bomb_location.remove(bomb_p1_def_close_check)
-    
+
                                             elif (x,y)==(player1_position):
 
                                                 #player1 died
@@ -159,7 +131,7 @@ class Bomb():
                                     default_bomb_location.remove(bomb_p1_def)
                                     box.remove_box(screen,(player1_bomb_x_0,player1_bomb_y_0))
                                     box.remove_box(screen,(bomb_p1_def[0],bomb_p1_def[1]))
-
+                                    
                 if len(player1_bomb_location)==3:
 
                     #player2 die algorithm
@@ -318,27 +290,3 @@ class Bomb():
 
     def live_event(self):
         return player1_score,player2_score
-
-
-
-
-
-"""for default_bomb_close_default_bomb in default_bomb_location: 
-
-    default_bomb_close_default_bomb_direction= { #if the bomb, close to other bombs                                            
-
-                "going right":  (default_bomb_close_default_bomb[0] + 40, default_bomb_close_default_bomb[1]     ),
-                "going left":   (default_bomb_close_default_bomb[0] - 40, default_bomb_close_default_bomb[1]     ),
-                "going up":     (default_bomb_close_default_bomb[0]     , default_bomb_close_default_bomb[1] - 40),
-                "going down":   (default_bomb_close_default_bomb[0]     , default_bomb_close_default_bomb[1] + 40)
-            }   
-    for direection, (x,y) in default_bomb_close_default_bomb_direction.items():
-        
-                    if (x,y) == (default_bomb_close_default_bomb[0],default_bomb_close_default_bomb[1]):
-
-                        default_bomb_close_default_bomb[2]-=1
-                        
-
-
-                        if default_bomb_close_default_bomb[2]==0:
-                            default_bomb_location.remove(default_bomb_close_default_bomb)"""
